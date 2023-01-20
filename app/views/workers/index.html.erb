@@ -1,0 +1,45 @@
+<% if user_signed_in? %> 
+ <div> Welcome <%= current_user.email %> </div> 
+ <div><p>Last Sign in @: <%= current_user.last_sign_in_at %></p></div>
+  <%= link_to "Sign out", destroy_user_session_path, method: :delete %> 
+<% else %>
+  <%= link_to "Sign in", new_user_session_path %> 
+<% end %>
+<% if user_signed_in? %>
+<%= link_to "New Worker", new_worker_path(user_id: current_user.id)%>
+<% end %>
+<h1>Workers Details</h1>
+
+<table class="table table-light table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Worker Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Age</th>
+      <th scope="col">Gender</th>
+    <% if user_signed_in? %>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th> 
+    <%end%>
+    </tr>
+  </thead>
+  <tbody>
+<% @workers.each do |worker|%>
+    <tr>
+    <th scope="row"><%= worker.id%></th>
+    <td><%= worker.name%></td>
+    <td><%= worker.date%></td>
+    <td><%= worker.age%></td>
+    <td><%= worker.gender%></td>
+    <% if user_signed_in? %>
+    <td><%= link_to "Edit",edit_worker_path(user_id: worker.user_id, id: worker.id) %></td>
+    <td><%= link_to "Delete" ,worker_path(id: worker.id),data:{
+        turbo_method: :delete,
+        turbo_confirm: "Are you sure?"
+            }%></td>
+    <%end%>
+  </tr>
+<%end%>
+</tbody>
+</table>
