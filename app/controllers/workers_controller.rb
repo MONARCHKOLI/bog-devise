@@ -14,7 +14,6 @@ class WorkersController < ApplicationController
     def create
         @worker =  Worker.new(worker_params)
         @worker.user_id = current_user.id
-        debugger
         if @worker.save
             redirect_to "/workers"
         else
