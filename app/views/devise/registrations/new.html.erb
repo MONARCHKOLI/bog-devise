@@ -1,11 +1,15 @@
-<h2>Sign up</h2>
+<div class="container-sm d-flex justify-content-center">
+<div class="shadow-lg p-3 mb-5 bg-body rounded h-100 d-inline-block " >
+<h2>
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4O-2nX3MBHjcsTD7gdm8e0j8zZ5gT2KLchGH6MoAuiMgNbkPx7sgLTm-45Ayp2yp-7No&usqp=CAU" height="40px"/>
+Sign up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" ,required: true%>
   </div>
 
   <div class="field">
@@ -13,17 +17,17 @@
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.password_field :password, autocomplete: "new-password" ,required: true%>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password",required: true %>
   </div>
-
+<br>
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
 <% end %>
-
-<%= render "devise/shared/links" %>
+</div>
+</div>

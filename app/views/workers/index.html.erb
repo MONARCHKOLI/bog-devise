@@ -1,12 +1,9 @@
 <% if user_signed_in? %> 
- <div> Welcome <%= current_user.email %> </div> 
- <div><p>Last Sign in @: <%= current_user.last_sign_in_at %></p></div>
-  <%= link_to "Sign out", destroy_user_session_path, method: :delete %> 
-<% else %>
-  <%= link_to "Sign in", new_user_session_path %> 
+ <div style="color: blue;"> Welcome : <span style="color: rgb(33, 111, 33);"><%= current_user.email.capitalize %> </span></div> 
+ <div><p>Last Sign in @: <b><%= current_user.last_sign_in_at.strftime "%d/%m/%Y %H:%M" %></b></p></div>  
 <% end %>
 <% if user_signed_in? %>
-<%= link_to "New Worker", new_worker_path(user_id: current_user.id)%>
+<%= link_to "New Worker", new_worker_path%>
 <% end %>
 <h1>Workers Details</h1>
 
@@ -18,20 +15,25 @@
       <th scope="col">Date</th>
       <th scope="col">Age</th>
       <th scope="col">Gender</th>
-    <% if user_signed_in? %>
+      <th scope="col">Shift</th>
+    <% if user_signed_in?  %>
       <th scope="col">Edit</th>
       <th scope="col">Delete</th> 
     <%end%>
     </tr>
   </thead>
   <tbody>
-<% @workers.each do |worker|%>
+    
+<% @workers.each_with_index do |worker,index|%>
+<%if user_signed_in?%>
+  <% if current_user.id == worker.user_id%>
     <tr>
     <th scope="row"><%= worker.id%></th>
-    <td><%= worker.name%></td>
+    <td><%= worker.name.capitalize%></td>
     <td><%= worker.date%></td>
     <td><%= worker.age%></td>
     <td><%= worker.gender%></td>
+    <td><%= worker.shift%></td>
     <% if user_signed_in? %>
     <td><%= link_to "Edit",edit_worker_path(user_id: worker.user_id, id: worker.id) %></td>
     <td><%= link_to "Delete" ,worker_path(id: worker.id),data:{
@@ -39,7 +41,24 @@
         turbo_confirm: "Are you sure?"
             }%></td>
     <%end%>
-  </tr>
+    </tr>
+  <%end%>
+<%else%>
+    <tr>
+      <th scope="row"><%= worker.id%></th>
+      <td><%= worker.name.capitalize%></td>
+      <td><%= worker.date%></td>
+      <td><%= worker.age%></td>
+      <td><%= worker.gender%></td>
+      <% if user_signed_in? %>
+      <td><%= link_to "Edit",edit_worker_path(user_id: worker.user_id, id: worker.id) %></td>
+      <td><%= link_to "Delete" ,worker_path(id: worker.id),data:{
+          turbo_method: :delete,
+          turbo_confirm: "Are you sure?"
+              }%></td>
+      <%end%>
+    </tr>
+<%end%>
 <%end%>
 </tbody>
 </table>

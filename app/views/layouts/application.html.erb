@@ -10,22 +10,36 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body><ul class="nav justify-content-end">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Active</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-  </li>
-</ul>
-  <p class="notice"><%= notice %></p> 
-  <p class="alert"><%= alert %></p>
+  <body>
+  
+  <ul class="nav justify-content-end">
+  <% if user_signed_in? %>
+    <li class="nav-item">
+      <%= button_to "Sign out", destroy_user_session_path, method: :get , class:"btn btn-outline-danger btn-sm"%> 
+    </li>
+  <%else%>
+  <button type="button" class="btn btn-outline-success btn-sm">
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="/users/sign_in">Login</a>
+    </li>
+  </button>&nbsp;
+  <button type="button" class="btn btn-outline-info btn-sm">
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="/users/sign_up">Sign Up</a>
+    </li>
+  </button>
+  <% end %>
+  </ul>
+  <% if notice %>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong><%= notice %></strong>
+  </div>
+  <%end%>  
+  <% if alert %>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong><%= alert %></strong>
+  </div>
+  <%end%> 
     <%= yield %>
   </body>
 </html>
