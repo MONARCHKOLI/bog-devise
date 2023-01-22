@@ -1,21 +1,31 @@
+<div class="container-sm d-flex justify-content-center">
+<div class="shadow-lg p-3 mb-5 bg-body rounded h-100 d-inline-block " >
 <%= form_with model: @worker do |form| %>
     <div>
       <%= form.label :name %><br>
       <%= form.text_field :name %>
      
     </div>
-    
     <div>
-      <%= form.label :age %><br>
-      <%= form.text_field :age %><br>
-    </div>
-
-    <div>
-        <%= form.label :date_of_birth%>
+        <%= form.label :date_for_shift%><br>
         <%= form.date_field :date %><br>
     </div>
-  
+    <div>
+      <%= form.label :shift %><br>
+      <%= form.select :shift,["Shift:1{0-8}","Shift:2{9-16}","Shift:3{17-24}"] %><br>
+    </div>
+    <div>
+    <%= form.label :age %><br>
+    <%= form.number_field :age, in: 18..70 %><br>
+    </div>
+    <div>
+    <%= form.label :gender %><br>
+    <%= form.select :gender,["Male","Female","Other"] %><br>
+    </div>
+    <br>
     <div>
       <%= form.submit %>
     </div>
 <% end %>
+</div>
+</div>
