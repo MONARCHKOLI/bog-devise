@@ -3,24 +3,24 @@
 <%= form_with model: @worker do |form| %>
     <div>
       <%= form.label :name %><br>
-      <%= form.text_field :name %>
+      <%= form.text_field :name,required: true %>
      
     </div>
     <div>
         <%= form.label :date_for_shift%><br>
-        <%= form.date_field :date %><br>
+        <%= form.date_field :date ,required: true%><br>
     </div>
     <div>
       <%= form.label :shift %><br>
-      <%= form.select :shift,["Shift:1{0-8}","Shift:2{9-16}","Shift:3{17-24}"] %><br>
+      <%= form.select :shift,["Shift:1{0-8}","Shift:2{9-16}","Shift:3{17-24}"] ,required: true%><br>
     </div>
     <div>
     <%= form.label :age %><br>
-    <%= form.number_field :age, in: 18..70 %><br>
+    <%= form.number_field :age, in: 18..70,required: true %><br>
     </div>
     <div>
     <%= form.label :gender %><br>
-    <%= form.select :gender,["Male","Female","Other"] %><br>
+    <%= form.select :gender,["Male","Female","Other"] ,required: true%><br>
     </div>
     <br>
     <div>
